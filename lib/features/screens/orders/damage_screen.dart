@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/seal_screen.dart';
 
 import 'package:clean_go_vendor_app/widgets/step_indicator.dart';
 import 'package:clean_go_vendor_app/widgets/damage_image_box.dart';
@@ -202,8 +203,13 @@ class _DamageScreenState extends State<DamageScreen> {
                 ),
               ),
               onPressed: () {
-                // Navigate to Seal screen later
-              },
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => SealScreen(),
+    ),
+  );
+},
               child: const Text(
                 "Next Step",
                 style: TextStyle(fontSize: 18, color: Colors.white),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/orders/pickup_screen.dart';
-import 'package:clean_go_vendor_app/features/orders/seal_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/pickup_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/seal_screen.dart';
 import 'package:clean_go_vendor_app/widgets/filter_chip_widget.dart';
 import 'package:clean_go_vendor_app/widgets/order_card.dart';
 import 'package:clean_go_vendor_app/widgets/stat_card.dart';
 import 'package:clean_go_vendor_app/models/order_model.dart';
-
 import '../notifications/notifications_screen.dart';
 
 class HomeScreen extends StatefulWidget {
