@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:clean_go_vendor_app/features/screens/orders/seal_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/screens/seal_screen.dart';
 
-import 'package:clean_go_vendor_app/widgets/step_indicator.dart';
-import 'package:clean_go_vendor_app/widgets/damage_image_box.dart';
-import 'package:clean_go_vendor_app/widgets/damage_chip.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/step_indicator.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/damage_image_box.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/damage_chip.dart';
 
 class DamageScreen extends StatefulWidget {
   const DamageScreen({super.key});

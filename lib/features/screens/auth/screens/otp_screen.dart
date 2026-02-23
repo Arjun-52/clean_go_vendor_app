@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../home/home_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/home/screens/home_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;

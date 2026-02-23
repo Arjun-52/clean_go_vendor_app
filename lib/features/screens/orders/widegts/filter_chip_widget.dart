@@ -20,26 +20,22 @@ class FilterChipWidget extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: selected ? primary : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: selected ? primary : Colors.grey.shade300),
-          boxShadow: selected
-              ? [
-                  BoxShadow(
-                    color: primary.withOpacity(0.2),
-                    blurRadius: 6,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              : [],
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: selected ? primary : Colors.grey.shade300,
+            width: selected ? 1.0 : 0.5,
+          ),
+          // Flatter design: removed heavy box shadow
         ),
         child: Text(
           text,
           style: TextStyle(
             color: selected ? Colors.white : Colors.black87,
-            fontWeight: FontWeight.w600,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
             fontSize: 13,
           ),
         ),

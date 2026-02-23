@@ -1,4 +1,4 @@
-import 'package:clean_go_vendor_app/features/screens/auth/login_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

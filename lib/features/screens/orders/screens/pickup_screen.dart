@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:clean_go_vendor_app/widgets/step_indicator.dart';
-import 'package:clean_go_vendor_app/widgets/photo_section.dart';
-import 'package:clean_go_vendor_app/widgets/item_photo_grid.dart';
-import 'package:clean_go_vendor_app/widgets/master_photo_box.dart';
-import 'package:clean_go_vendor_app/widgets/app_bottom_nav.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/step_indicator.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/photo_section.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/item_photo_grid.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/master_photo_box.dart';
+import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'damage_screen.dart';
 
 class PickupScreen extends StatefulWidget {

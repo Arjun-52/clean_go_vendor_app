@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'pickup_otp_screen.dart';
-import 'package:clean_go_vendor_app/widgets/step_indicator.dart';
-import 'package:clean_go_vendor_app/widgets/app_bottom_nav.dart';
-import 'package:clean_go_vendor_app/widgets/item_summary_card.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/step_indicator.dart';
+import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/item_summary_card.dart';
 
 class SealScreen extends StatefulWidget {
   const SealScreen({super.key});

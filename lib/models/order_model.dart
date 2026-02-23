@@ -16,6 +16,4 @@ class OrderModel {
     this.timer,
     required this.isBreached,
   });
-
-  void operator [](String other) {}
 }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/screens/orders/pickup_screen.dart';
-import 'package:clean_go_vendor_app/features/screens/orders/seal_screen.dart';
-import 'package:clean_go_vendor_app/widgets/filter_chip_widget.dart';
-import 'package:clean_go_vendor_app/widgets/order_card.dart';
-import 'package:clean_go_vendor_app/widgets/stat_card.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/screens/pickup_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/screens/seal_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/filter_chip_widget.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/order_card.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/stat_card.dart';
+import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/models/order_model.dart';
-import '../notifications/notifications_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/processing_screen/processign_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/notifications/screens/notifications_screen.dart';
+import 'package:clean_go_vendor_app/features/screens/delivery/delivery_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +18,73 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final int _currentIndex = 0;
+  void _showSuccessBanner() {
+    final overlay = Overlay.of(context);
+
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: 60,
+        left: 20,
+        right: 20,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 15),
+              ],
+            ),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Pickup Completed",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        "Order ORD-2026-001 picked up successfully",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => overlayEntry.remove(),
+                  child: const CircleAvatar(
+                    radius: 14,
+                    backgroundColor: Colors.red,
+                    child: Icon(Icons.close, size: 14, color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(overlayEntry);
+
+    Future.delayed(const Duration(seconds: 3), () {
+      if (overlayEntry.mounted) {
+        overlayEntry.remove();
+      }
+    });
+  }
+
   String selectedFilter = "All";
 
   final List<OrderModel> orders = [
@@ -170,45 +240,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FilterChipWidget(
-                    text: "All",
-                    selected: selectedFilter == "All",
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = "All";
-                      });
-                    },
-                  ),
-                  FilterChipWidget(
-                    text: "Pickup",
-                    selected: selectedFilter == "Pickup",
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = "Pickup";
-                      });
-                    },
-                  ),
-                  FilterChipWidget(
-                    text: "Processing",
-                    selected: selectedFilter == "Processing",
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = "Processing";
-                      });
-                    },
-                  ),
-                  FilterChipWidget(
-                    text: "Delivery",
-                    selected: selectedFilter == "Delivery",
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = "Delivery";
-                      });
-                    },
-                  ),
-                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: ["All", "Pickup", "Processing", "Delivery"]
+                    .map(
+                      (filter) => Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: FilterChipWidget(
+                            text: filter,
+                            selected: selectedFilter == filter,
+                            onTap: () {
+                              setState(() {
+                                selectedFilter = filter;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),
@@ -264,26 +314,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: primary,
-        unselectedItemColor: Colors.grey,
-        currentIndex: 0,
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inventory_2),
-            label: "Processing",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_shipping),
-            label: "Delivery",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
-      ),
+
+      bottomNavigationBar: AppBottomNav(currentIndex: 0),
     );
   }
 }

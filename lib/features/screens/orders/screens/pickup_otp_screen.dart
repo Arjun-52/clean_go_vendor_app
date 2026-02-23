@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/widgets/step_indicator.dart';
-import 'package:clean_go_vendor_app/widgets/otp_input_row.dart';
-import 'package:clean_go_vendor_app/widgets/app_bottom_nav.dart';
-
+import 'package:clean_go_vendor_app/features/screens/orders/widegts/step_indicator.dart';
+import 'package:clean_go_vendor_app/features/screens/auth/widgets/otp_input_row.dart';
+import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
+import 'package:clean_go_vendor_app/features/screens/orders/screens/otp_verified_screen.dart';
 class PickupOtpScreen extends StatefulWidget {
   const PickupOtpScreen({super.key});
 
@@ -135,14 +135,27 @@ class _PickupOtpScreenState extends State<PickupOtpScreen> {
                             ),
                           ),
                           onPressed: () {
-                            String otp = controllers.map((c) => c.text).join();
+  String otp = controllers.map((c) => c.text).join();
 
-                            if (otp.length == 4) {
-                              print("Entered OTP: $otp");
-                            } else {
-                              print("Incomplete OTP");
-                            }
-                          },
+  if (otp.length == 4) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const OtpVerifiedScreen(),
+      ),
+    ).then((value) {
+      if (value == true) {
+        Navigator.pop(context, true); 
+      }
+    });
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Please enter complete 4-digit OTP"),
+      ),
+    );
+  }
+},
                           child: const Text(
                             "Verify OTP",
                             style: TextStyle(fontSize: 18, color: Colors.white),

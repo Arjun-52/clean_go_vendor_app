@@ -1,6 +1,6 @@
 import 'package:clean_go_vendor_app/models/notification_model.dart';
 import 'package:flutter/material.dart';
-import '../../../models/notification_model.dart';
+import 'package:clean_go_vendor_app/models/notification_model.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
