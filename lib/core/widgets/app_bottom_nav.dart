@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/screens/home/screens/home_screen.dart';
-import 'package:clean_go_vendor_app/features/screens/processing_screen/processign_screen.dart';
-import 'package:clean_go_vendor_app/features/screens/delivery/delivery_screen.dart';
+import 'package:clean_go_vendor_app/features/home/screens/home_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/screens/processing/processign_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/screens/delivery/delivery_screen.dart';
+import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:clean_go_vendor_app/features/history/screens/history_screen.dart';
 
 class AppBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -10,42 +12,43 @@ class AppBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primary = Color(0xFF0D3B66);
+    color:
+    AppColors.primary;
 
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      selectedItemColor: primary,
+      selectedItemColor: AppColors.primary,
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
       onTap: (index) {
         if (index == currentIndex) return;
 
-        if (index == 0) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const HomeScreen()),
-          );
+        Widget screen;
+
+        switch (index) {
+          case 0:
+            screen = const HomeScreen();
+            break;
+          case 1:
+            screen = const ProcessingScreen();
+            break;
+          case 2:
+            screen = const DeliveryScreen();
+            break;
+          case 3:
+            screen = const HistoryScreen();
+            break;
+          default:
+            return;
         }
 
-        if (index == 1) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const ProcessingScreen()),
-          );
-        }
-
-        if (index == 2) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const DeliveryScreen()),
-          );
-        }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => screen),
+        );
       },
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(
           icon: Icon(Icons.inventory_2),
           label: "Processing",
@@ -54,14 +57,8 @@ class AppBottomNav extends StatelessWidget {
           icon: Icon(Icons.local_shipping),
           label: "Delivery",
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history),
-          label: "History",
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: "Profile",
-        ),
+        BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
       ],
     );
   }

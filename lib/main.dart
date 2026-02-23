@@ -1,5 +1,7 @@
-import 'package:clean_go_vendor_app/features/screens/auth/screens/login_screen.dart';
+import 'package:clean_go_vendor_app/features/auth/screens/login_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/providers/order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const LoginScreen(),
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => OrderProvider())],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+        home: const LoginScreen(),
+      ),
     );
   }
 }
