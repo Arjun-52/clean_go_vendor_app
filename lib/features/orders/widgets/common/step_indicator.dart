@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'step_circle.dart';
 
 class StepIndicator extends StatelessWidget {
-  final int currentStep; // 0 = Pickup, 1 = Damage, 2 = Seal, 3 = OTP
+  final int currentStep;
 
   const StepIndicator({super.key, required this.currentStep});
 
@@ -16,50 +16,38 @@ class StepIndicator extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          StepCircle(
-            icon: Icons.camera_alt,
-            label: "Photos",
-            active: currentStep >= 0,
-          ),
+          _buildStep(Icons.camera_alt, "Photos", 0),
+          _buildLine(currentStep >= 1, activeColor, inactiveColor),
 
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(top: 24),
-              height: 2,
-              color: currentStep >= 1 ? activeColor : inactiveColor,
-            ),
-          ),
+          _buildStep(Icons.warning, "Damage", 1),
+          _buildLine(currentStep >= 2, activeColor, inactiveColor),
 
-          StepCircle(
-            icon: Icons.warning,
-            label: "Damage",
-            active: currentStep >= 1,
-          ),
+          _buildStep(Icons.inventory, "Seal", 2),
+          _buildLine(currentStep >= 3, activeColor, inactiveColor),
 
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(top: 24),
-              height: 2,
-              color: currentStep >= 2 ? activeColor : inactiveColor,
-            ),
-          ),
-
-          StepCircle(
-            icon: Icons.inventory,
-            label: "Seal",
-            active: currentStep >= 2,
-          ),
-
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(top: 24),
-              height: 2,
-              color: currentStep >= 3 ? activeColor : inactiveColor,
-            ),
-          ),
-
-          StepCircle(icon: Icons.lock, label: "OTP", active: currentStep >= 3),
+          _buildStep(Icons.lock, "OTP", 3),
         ],
+      ),
+    );
+  }
+
+  Widget _buildStep(IconData icon, String label, int stepIndex) {
+    return StepCircle(
+      icon: icon,
+      label: label,
+      active: currentStep >= stepIndex,
+    );
+  }
+
+  Widget _buildLine(bool active, Color activeColor, Color inactiveColor) {
+    return Expanded(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          margin: const EdgeInsets.only(top: 24), 
+          height: 2,
+          color: active ? activeColor : inactiveColor,
+        ),
       ),
     );
   }

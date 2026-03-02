@@ -52,7 +52,7 @@ class OrderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// ===== 1️⃣ Top Row =====
+          /// ===== Top Row =====
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +121,7 @@ class OrderCard extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          /// ===== 2️⃣ Middle Row =====
+          /// =====  Middle Row =====
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -157,7 +157,7 @@ class OrderCard extends StatelessWidget {
           const Divider(height: 1, thickness: 0.5),
           const SizedBox(height: 12),
 
-          /// ===== 3️⃣ Bottom Row =====
+          /// =====  Bottom Row =====
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

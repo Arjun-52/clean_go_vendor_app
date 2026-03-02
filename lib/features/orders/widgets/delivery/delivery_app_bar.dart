@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clean_go_vendor_app/features/home/screens/home_screen.dart';
 
 class DeliveryAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String orderId;
@@ -22,7 +23,13 @@ class DeliveryAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () => Navigator.pop(context),
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
+            (route) => false,
+          );
+        },
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

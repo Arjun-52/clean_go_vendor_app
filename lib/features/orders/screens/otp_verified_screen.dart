@@ -1,5 +1,6 @@
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:clean_go_vendor_app/features/home/screens/home_screen.dart';
 
 class OtpVerifiedScreen extends StatelessWidget {
   const OtpVerifiedScreen({super.key});
@@ -179,8 +180,14 @@ class OtpVerifiedScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pop(context, true);
-                        },
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(
+      builder: (_) => HomeScreen(showPickupBanner: true),
+    ),
+    (route) => false,
+  );
+},
                         child: const Text(
                           "Complete Pickup",
                           style: TextStyle(

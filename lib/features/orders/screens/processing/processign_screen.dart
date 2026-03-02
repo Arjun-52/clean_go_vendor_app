@@ -2,7 +2,7 @@ import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/features/orders/widgets/processing/processing_step_tile.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
-
+import 'package:clean_go_vendor_app/features/home/screens/home_screen.dart';
 class ProcessingScreen extends StatefulWidget {
   const ProcessingScreen({super.key});
 
@@ -84,33 +84,46 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
       appBar: AppBar(
+       leading: IconButton(
+  icon: const Icon(Icons.arrow_back),
+  onPressed: () {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => HomeScreen()),
+      (route) => false,
+    );
+  },
+),
         backgroundColor: Colors.white,
         elevation: 1,
         leadingWidth: 40, // reduces back button spacing
         iconTheme: const IconThemeData(color: Colors.black),
-        titleSpacing: 0, // moves title slightly left
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
-              "Processing • ORD-2026-001",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 2),
-            Text(
-              "Sameer Vyas • 3 items",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
+        titleSpacing: 2, // moves title slightly left
+        title: Padding(
+  padding: const EdgeInsets.only(left: 8), // adjust value as needed
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: const [
+      Text(
+        "Processing • ORD-2026-001",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
         ),
+      ),
+      SizedBox(height: 2),
+      Text(
+        "Sameer Vyas • 3 items",
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 13,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    ],
+  ),
+),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
@@ -204,25 +217,35 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
                     qcItem("QR label attached correctly", isReadyStage),
 
                     if (isReadyStage) ...[
-                      const SizedBox(height: 20),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Mark Ready for Delivery",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+  const SizedBox(height: 20),
+  InkWell(
+    borderRadius: BorderRadius.circular(12),
+    onTap: () {
+      Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (_) => HomeScreen()),
+    (route) => false,
+  );
+    },
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF148C81),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Center(
+        child: Text(
+          "Mark Ready for Delivery",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    ),
+  ),
+],
                   ],
                 ),
               ),
