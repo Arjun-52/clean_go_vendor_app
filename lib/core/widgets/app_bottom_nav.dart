@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/home/screens/home_screen.dart';
-import 'package:clean_go_vendor_app/features/orders/screens/processing/processign_screen.dart';
-import 'package:clean_go_vendor_app/features/orders/screens/delivery/delivery_screen.dart';
+import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/presentation/screens/processing/processign_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/presentation/screens/delivery/delivery_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
-import 'package:clean_go_vendor_app/features/history/screens/history_screen.dart';
+import 'package:clean_go_vendor_app/features/history/presentation/screens/history_screen.dart';
 
 class AppBottomNav extends StatelessWidget {
   final int currentIndex;

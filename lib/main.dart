@@ -1,5 +1,5 @@
-import 'package:clean_go_vendor_app/features/auth/screens/login_screen.dart';
-import 'package:clean_go_vendor_app/features/orders/providers/order_provider.dart';
+import 'package:clean_go_vendor_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/presentation/providers/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
