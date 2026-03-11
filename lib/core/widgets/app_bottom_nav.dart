@@ -13,12 +13,11 @@ class AppBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    color:
-    AppColors.primary;
+    final color = AppColors.primary;
 
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      selectedItemColor: AppColors.primary,
+      selectedItemColor: color,
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
       onTap: (index) {
@@ -53,7 +52,7 @@ class AppBottomNav extends StatelessWidget {
           context.go('/history');
         }
       },
-      items: const [
+      items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
         BottomNavigationBarItem(
           icon: Icon(Icons.inventory_2),

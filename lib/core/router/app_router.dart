@@ -4,6 +4,7 @@ import 'package:clean_go_vendor_app/features/auth/presentation/screens/otp_scree
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
 import 'package:clean_go_vendor_app/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:clean_go_vendor_app/features/history/presentation/screens/history_screen.dart';
+import 'package:clean_go_vendor_app/features/orders/presentation/providers/orders_provider_wrapper.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/pickup/pickup_screen.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/pickup/pickup_otp_screen.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/damage/damage_screen.dart';
@@ -21,10 +22,8 @@ import 'package:clean_go_vendor_app/features/orders/presentation/screens/otp_ver
 final appRouter = GoRouter(
   initialLocation: '/login',
   routes: [
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
+
     GoRoute(
       path: '/otp',
       builder: (context, state) {
@@ -32,72 +31,103 @@ final appRouter = GoRouter(
         return OtpScreen(phoneNumber: phoneNumber);
       },
     ),
+
     GoRoute(
       path: '/home',
       builder: (context, state) {
         final showPickupBanner = state.extra as bool? ?? false;
-        return HomeScreen(showPickupBanner: showPickupBanner);
+        return OrdersProviderWrapper(
+          child: HomeScreen(showPickupBanner: showPickupBanner),
+        );
       },
     ),
+
     GoRoute(
       path: '/notifications',
       builder: (context, state) => const NotificationsScreen(),
     ),
+
     GoRoute(
       path: '/history',
       builder: (context, state) => const HistoryScreen(),
     ),
+
     GoRoute(
       path: '/pickup',
-      builder: (context, state) => const PickupScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const PickupScreen()),
     ),
+
     GoRoute(
       path: '/pickup-otp',
-      builder: (context, state) => const PickupOtpScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const PickupOtpScreen()),
     ),
+
     GoRoute(
       path: '/damage',
-      builder: (context, state) => const DamageScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DamageScreen()),
     ),
+
     GoRoute(
       path: '/seal',
-      builder: (context, state) => const SealScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const SealScreen()),
     ),
+
     GoRoute(
       path: '/processing',
-      builder: (context, state) => const ProcessingScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const ProcessingScreen()),
     ),
+
     GoRoute(
       path: '/delivery',
-      builder: (context, state) => const DeliveryScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DeliveryScreen()),
     ),
+
     GoRoute(
       path: '/delivery-checklist',
-      builder: (context, state) => DeliveryChecklistScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: DeliveryChecklistScreen()),
     ),
+
     GoRoute(
       path: '/delivery-otp',
-      builder: (context, state) => const DeliveryOtpScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DeliveryOtpScreen()),
     ),
+
     GoRoute(
       path: '/delivery-otp-verification',
-      builder: (context, state) => const DeliveryOtpVerificationScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DeliveryOtpVerificationScreen()),
     ),
+
     GoRoute(
       path: '/delivery-qr-verified',
-      builder: (context, state) => DeliveryQrVerifiedScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: DeliveryQrVerifiedScreen()),
     ),
+
     GoRoute(
       path: '/delivery-otp-verified',
-      builder: (context, state) => const DeliveryOtpVerifiedScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DeliveryOtpVerifiedScreen()),
     ),
+
     GoRoute(
       path: '/delivery-completed',
-      builder: (context, state) => const DeliveryCompletedScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const DeliveryCompletedScreen()),
     ),
+
     GoRoute(
       path: '/otp-verified',
-      builder: (context, state) => const OtpVerifiedScreen(),
+      builder: (context, state) =>
+          OrdersProviderWrapper(child: const OtpVerifiedScreen()),
     ),
   ],
 );
