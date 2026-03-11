@@ -187,34 +187,10 @@ void initState() {
     });
   }
 
-  String selectedFilter = "All";
-
-  List<OrderModel> getFilteredOrders(List<OrderModel> orders) {
-    if (selectedFilter == "All") return orders;
-
-    if (selectedFilter == "Pickup") {
-      return orders
-          .where((order) => order.status == OrderStatus.pickupRequired)
-          .toList();
-    }
-
-    if (selectedFilter == "Processing") {
-      return orders.where((order) => order.status == OrderStatus.processing).toList();
-    }
-
-    if (selectedFilter == "Delivery") {
-      return orders
-          .where((order) => order.status == OrderStatus.readyForDelivery)
-          .toList();
-    }
-
-    return orders;
-  }
-
   @override
   Widget build(BuildContext context) {
     final orderProvider = context.watch<OrderProvider>();
-    final filteredOrders = getFilteredOrders(orderProvider.orders);
+    final filteredOrders = orderProvider.filteredOrders;
 
     color:
     AppColors.primary;
@@ -319,11 +295,9 @@ void initState() {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: FilterChipWidget(
                             text: filter,
-                            selected: selectedFilter == filter,
+                            selected: orderProvider.selectedFilter == filter,
                             onTap: () {
-                              setState(() {
-                                selectedFilter = filter;
-                              });
+                              orderProvider.setFilter(filter);
                             },
                           ),
                         ),

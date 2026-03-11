@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:clean_go_vendor_app/features/orders/domain/models/order_model.dart';
 import 'package:clean_go_vendor_app/features/orders/domain/repositories/i_order_repository.dart';
+import 'package:clean_go_vendor_app/core/enums/order_status.dart';
 
 class OrderProvider extends ChangeNotifier {
   final IOrderRepository _repository;
   List<OrderModel> _orders = [];
   bool _isLoading = false;
+  String _selectedFilter = 'All';
 
   OrderProvider(this._repository);
 
@@ -21,6 +23,37 @@ class OrderProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  String get selectedFilter => _selectedFilter;
+
+  void setFilter(String filter) {
+    if (_selectedFilter != filter) {
+      _selectedFilter = filter;
+      notifyListeners();
+    }
+  }
+
+  List<OrderModel> get filteredOrders {
+    if (_selectedFilter == "All") return _orders;
+
+    if (_selectedFilter == "Pickup") {
+      return _orders
+          .where((order) => order.status == OrderStatus.pickupRequired)
+          .toList();
+    }
+
+    if (_selectedFilter == "Processing") {
+      return _orders.where((order) => order.status == OrderStatus.processing).toList();
+    }
+
+    if (_selectedFilter == "Delivery") {
+      return _orders
+          .where((order) => order.status == OrderStatus.readyForDelivery)
+          .toList();
+    }
+
+    return _orders;
   }
 
   /// Public getter for orders list
