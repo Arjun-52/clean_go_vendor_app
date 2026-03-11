@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/features/auth/presentation/screens/otp_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -86,13 +87,7 @@ class LoginScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const OtpScreen(phoneNumber: "+91 9347830977"),
-                    ),
-                  );
+                  context.push('/otp', extra: '+91 9347830977');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0D3B66),

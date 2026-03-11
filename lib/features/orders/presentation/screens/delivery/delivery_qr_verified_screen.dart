@@ -1,5 +1,6 @@
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/delivery/delivery_app_bar.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/common/delivery_base_card.dart';
@@ -44,12 +45,7 @@ class DeliveryQrVerifiedScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const DeliveryChecklistScreen(),
-                      ),
-                    );
+                    context.push('/delivery-checklist');
                   },
                   child: const Text(
                     "Proceed to Checklist",

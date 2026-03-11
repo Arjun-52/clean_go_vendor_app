@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/delivery/delivery_otp_verification_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart';
 
 class DeliveryOtpScreen extends StatefulWidget {
   const DeliveryOtpScreen({super.key});
@@ -161,13 +162,7 @@ class _DeliveryOtpScreenState extends State<DeliveryOtpScreen> {
                 ),
                 onPressed: checkedCount == 2
                     ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                const DeliveryOtpVerificationScreen(),
-                          ),
-                        );
+                        context.push('/delivery-otp-verification');
                       }
                     : null,
 

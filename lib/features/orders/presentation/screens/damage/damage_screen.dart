@@ -7,6 +7,7 @@ import 'package:clean_go_vendor_app/features/orders/presentation/screens/seal_sc
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/common/step_indicator.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/damage/damage_image_box.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/damage/damage_chip.dart';
+import 'package:go_router/go_router.dart';
 
 class DamageScreen extends StatefulWidget {
   const DamageScreen({super.key});
@@ -204,10 +205,7 @@ class _DamageScreenState extends State<DamageScreen> {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SealScreen()),
-                );
+                context.push('/seal');
               },
               child: const Text(
                 "Next Step",

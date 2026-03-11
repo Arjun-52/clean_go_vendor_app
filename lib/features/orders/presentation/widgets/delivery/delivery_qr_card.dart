@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/delivery/delivery_qr_verified_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart';
 
 class DeliveryQrCard extends StatelessWidget {
   final String orderId;
@@ -55,10 +56,7 @@ class DeliveryQrCard extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => DeliveryQrVerifiedScreen()),
-                );
+                context.push('/delivery-qr-verified');
               },
               icon: const Icon(Icons.qr_code, color: Colors.white),
               label: const Text(

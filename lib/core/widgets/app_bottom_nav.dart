@@ -4,6 +4,7 @@ import 'package:clean_go_vendor_app/features/orders/presentation/screens/process
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/delivery/delivery_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:clean_go_vendor_app/features/history/presentation/screens/history_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -42,10 +43,15 @@ class AppBottomNav extends StatelessWidget {
             return;
         }
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => screen),
-        );
+        if (screen is HomeScreen) {
+          context.go('/home');
+        } else if (screen is ProcessingScreen) {
+          context.go('/processing');
+        } else if (screen is DeliveryScreen) {
+          context.go('/delivery');
+        } else if (screen is HistoryScreen) {
+          context.go('/history');
+        }
       },
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),

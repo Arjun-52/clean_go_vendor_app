@@ -1,6 +1,7 @@
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -101,10 +102,7 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (_) => const HomeScreen()),
-                  );
+                  context.go('/home');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,

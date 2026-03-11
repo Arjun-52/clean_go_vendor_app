@@ -11,6 +11,7 @@ import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:clean_go_vendor_app/core/enums/order_status.dart';
 import 'package:provider/provider.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/providers/order_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool showPickupBanner;
@@ -245,12 +246,7 @@ void initState() {
                             size: 22,
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const NotificationsScreen(),
-                              ),
-                            );
+                            context.push('/notifications');
                           },
                         ),
 
@@ -367,20 +363,11 @@ void initState() {
 
                   onPressed: () {
                     if (order.status == OrderStatus.pickupRequired) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => PickupScreen()),
-                      );
+                      context.push('/pickup');
                     } else if (order.status == OrderStatus.readyForDelivery) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => SealScreen()),
-                      );
+                      context.push('/seal');
                     } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => PickupScreen()),
-                      );
+                      context.push('/pickup');
                     }
                   },
                 );

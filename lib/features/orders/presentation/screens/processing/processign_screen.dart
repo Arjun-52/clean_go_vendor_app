@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/processing/processing_step_tile.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
+import 'package:go_router/go_router.dart';
 class ProcessingScreen extends StatefulWidget {
   const ProcessingScreen({super.key});
 
@@ -87,11 +88,7 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
        leading: IconButton(
   icon: const Icon(Icons.arrow_back),
   onPressed: () {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => HomeScreen()),
-      (route) => false,
-    );
+    context.go('/home');
   },
 ),
         backgroundColor: Colors.white,
@@ -221,11 +218,7 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
   InkWell(
     borderRadius: BorderRadius.circular(12),
     onTap: () {
-      Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (_) => HomeScreen()),
-    (route) => false,
-  );
+      context.go('/home');
     },
     child: Container(
       width: double.infinity,

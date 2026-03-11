@@ -7,6 +7,7 @@ import 'package:clean_go_vendor_app/features/orders/presentation/widgets/common/
 import 'package:clean_go_vendor_app/features/orders/presentation/widgets/common/master_photo_box.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/damage/damage_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class PickupScreen extends StatefulWidget {
   const PickupScreen({super.key});
@@ -134,10 +135,7 @@ class _PickupScreenState extends State<PickupScreen> {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const DamageScreen()),
-                );
+                context.push('/damage');
               },
               child: const Text(
                 "Next Step",

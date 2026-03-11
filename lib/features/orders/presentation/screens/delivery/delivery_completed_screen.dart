@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart';
 
 class DeliveryCompletedScreen extends StatelessWidget {
   const DeliveryCompletedScreen({super.key});
@@ -125,11 +126,7 @@ class DeliveryCompletedScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => const HomeScreen()),
-                          (route) => false,
-                        );
+                        context.go('/home');
                       },
                       child: const Text(
                         "Back to Dashboard",

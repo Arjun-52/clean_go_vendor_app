@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -18,11 +19,7 @@ class HistoryScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeScreen()),
-              (route) => false,
-            );
+            context.go('/home');
           },
         ),
         title: const Text(
