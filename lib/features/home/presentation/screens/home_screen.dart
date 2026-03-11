@@ -37,7 +37,8 @@ void initState() {
 
   final int _currentIndex = 0;
   void _showPickupCompletedBanner() {
-  final overlay = Overlay.of(context);
+    if (!mounted) return;
+    final overlay = Overlay.of(context);
 
   late OverlayEntry overlayEntry;
 
@@ -116,12 +117,13 @@ void initState() {
   overlay.insert(overlayEntry);
 
   Future.delayed(const Duration(seconds: 3), () {
-    if (overlayEntry.mounted) {
+    if (mounted && overlayEntry.mounted) {
       overlayEntry.remove();
     }
   });
 }
   void _showSuccessBanner() {
+    if (!mounted) return;
     final overlay = Overlay.of(context);
 
     late OverlayEntry overlayEntry;
@@ -181,7 +183,7 @@ void initState() {
     overlay.insert(overlayEntry);
 
     Future.delayed(const Duration(seconds: 3), () {
-      if (overlayEntry.mounted) {
+      if (mounted && overlayEntry.mounted) {
         overlayEntry.remove();
       }
     });
