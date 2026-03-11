@@ -9,6 +9,8 @@ import 'package:clean_go_vendor_app/features/notifications/presentation/screens/
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/seal_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:clean_go_vendor_app/core/enums/order_status.dart';
+import 'package:provider/provider.dart';
+import 'package:clean_go_vendor_app/features/orders/presentation/providers/order_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool showPickupBanner;
@@ -186,37 +188,7 @@ void initState() {
 
   String selectedFilter = "All";
 
-  final List<OrderModel> orders = [
-    OrderModel(
-      orderId: "ORD-2026-001",
-      status: OrderStatus.pickupRequired,
-      price: "₹486",
-      items: "3 items • wash-iron",
-      tags: ["BREACHED", "FAST"],
-      timer: null,
-      isBreached: true,
-    ),
-    OrderModel(
-      orderId: "ORD-2026-002",
-      status: OrderStatus.processing,
-      price: "₹800",
-      items: "6 items • wash-iron",
-      tags: ["STANDARD"],
-      timer: "05:22:30",
-      isBreached: false,
-    ),
-    OrderModel(
-      orderId: "ORD-2026-003",
-      status: OrderStatus.readyForDelivery,
-      price: "₹486",
-      items: "3 items • wash-iron",
-      tags: ["BREACHED", "FAST"],
-      timer: null,
-      isBreached: true,
-    ),
-  ];
-
-  List<OrderModel> get filteredOrders {
+  List<OrderModel> getFilteredOrders(List<OrderModel> orders) {
     if (selectedFilter == "All") return orders;
 
     if (selectedFilter == "Pickup") {
@@ -240,6 +212,9 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = context.watch<OrderProvider>();
+    final filteredOrders = getFilteredOrders(orderProvider.orders);
+
     color:
     AppColors.primary;
 

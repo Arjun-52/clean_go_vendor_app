@@ -1,8 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:clean_go_vendor_app/features/orders/domain/models/order_model.dart';
+import 'package:clean_go_vendor_app/features/orders/domain/repositories/i_order_repository.dart';
 
 class OrderProvider extends ChangeNotifier {
+  final IOrderRepository _repository;
   List<OrderModel> _orders = [];
+  bool _isLoading = false;
+
+  OrderProvider(this._repository);
+
+  bool get isLoading => _isLoading;
+
+  Future<void> fetchOrders() async {
+    _isLoading = true;
+    notifyListeners();
+    
+    try {
+      _orders = await _repository.getOrders();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 
   /// Public getter for orders list
   List<OrderModel> get orders => List.unmodifiable(_orders);
