@@ -35,12 +35,7 @@ class OrderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(
-            color: AppColors.primary,
-            width: 5, // Blue left strip width
-          ),
-        ),
+        border: Border(left: BorderSide(color: AppColors.primary, width: 5)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -58,18 +53,60 @@ class OrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              /// Left Side
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      orderId,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                    /// Order ID + Timer
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          orderId,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+
+                        /// Timer badge
+                        if (timer != null && status == OrderStatus.processing)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.green.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.access_time,
+                                  size: 12,
+                                  color: Colors.green,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  timer!,
+                                  style: const TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
                     ),
+
                     const SizedBox(height: 4),
+
+                    /// Location Row
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -105,13 +142,13 @@ class OrderCard extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Colors.red, width: 0.8),
+                    borderRadius: BorderRadius.circular(9),
+                    border: Border.all(color: Colors.green, width: 0.95),
                   ),
                   child: const Text(
                     "BREACHED",
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Colors.green,
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
                     ),
@@ -122,18 +159,90 @@ class OrderCard extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          /// =====  Middle Row =====
+          /// ===== Middle Row =====
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                items,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                children: [
+                  if (tags.isNotEmpty) ...[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: tags.first == "FAST"
+                            ? const Color(0xFFFFF3CD)
+                            : tags.first == "STANDARD"
+                            ? const Color(0xFFE8F5E8)
+                            : const Color(0xFFF0F0F0),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: tags.first == "FAST"
+                              ? Colors.orange
+                              : tags.first == "STANDARD"
+                              ? Colors.green
+                              : Colors.grey,
+                          width: 0.8,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            tags.first == "FAST"
+                                ? Icons.bolt
+                                : tags.first == "STANDARD"
+                                ? Icons.check_circle
+                                : Icons.label,
+                            size: 12,
+                            color: tags.first == "FAST"
+                                ? Colors.orange
+                                : tags.first == "STANDARD"
+                                ? Colors.green
+                                : Colors.grey,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            tags.first,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: tags.first == "FAST"
+                                  ? Colors.orange
+                                  : tags.first == "STANDARD"
+                                  ? Colors.green
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+
+                  RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87,
+                      ),
+                      children: [
+                        TextSpan(text: '${items.split('•')[0]}• '),
+                        TextSpan(
+                          text: items.split('•')[1].trim(),
+                          style: const TextStyle(
+                            color: Color(0xFF0D3B66),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -158,46 +267,19 @@ class OrderCard extends StatelessWidget {
           const Divider(height: 1, thickness: 0.5),
           const SizedBox(height: 12),
 
-          /// =====  Bottom Row =====
+          /// ===== Bottom Row =====
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    status.displayName,
-                    style: TextStyle(
-                      color: status == OrderStatus.readyForDelivery
-                          ? Colors.green
-                          : AppColors.primary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                  ),
-
-                  if (timer != null && status == OrderStatus.processing) ...[
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.access_time,
-                          size: 14,
-                          color: Colors.orange,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          timer!,
-                          style: const TextStyle(
-                            color: Colors.orange,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ],
+              Text(
+                status.displayName,
+                style: TextStyle(
+                  color: status == OrderStatus.readyForDelivery
+                      ? Colors.green
+                      : AppColors.primary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
               ),
 
               SizedBox(

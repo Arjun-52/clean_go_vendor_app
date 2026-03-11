@@ -43,8 +43,26 @@ class _SealScreenState extends State<SealScreen> {
             ),
           ],
         ),
-      ),
 
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0x14008847), // light green background
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: const Color(0xFF008847)),
+            ),
+            child: const Text(
+              "01:58:32",
+              style: TextStyle(
+                color: Color(0xFF008847),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -77,12 +95,11 @@ class _SealScreenState extends State<SealScreen> {
                         Container(
                           height: 120,
                           width: 120,
-                          color: Colors.black,
-                          child: const Center(
-                            child: Icon(
-                              Icons.qr_code,
-                              color: Colors.white,
-                              size: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: const DecorationImage(
+                              image: AssetImage("assets/images/qr.jpg"),
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),

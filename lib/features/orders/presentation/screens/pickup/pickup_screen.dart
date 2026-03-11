@@ -50,9 +50,9 @@ class _PickupScreenState extends State<PickupScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 5,
-        leadingWidth: 40, // reduces default leading space
+        leadingWidth: 40,
         leading: const BackButton(color: Colors.black),
-        titleSpacing: 0, // removes default spacing
+        titleSpacing: 0,
         title: const Text(
           "Pickup • CLN-2026-001",
           style: TextStyle(color: Colors.black, fontSize: 18),

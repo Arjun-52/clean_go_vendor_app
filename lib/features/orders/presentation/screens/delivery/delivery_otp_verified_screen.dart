@@ -24,48 +24,90 @@ class DeliveryOtpVerifiedScreen extends StatelessWidget {
         customerName: "Aday Sharma",
         timer: "00:57:02",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: DeliveryBaseCard(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.password, size: 80, color: AppColors.primary),
-              const SizedBox(height: 20),
-              const Text(
-                "Delivery OTP Verification",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                "Enter the customer's 4-digit delivery OTP.",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
-              ),
-              const SizedBox(height: 30),
-              SuccessCircle(size: 130),
-              const SizedBox(height: 20),
-              const Text(
-                "OTP Verified!",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF23B26D),
+      body: Align(
+        alignment: const Alignment(0, -0.75),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: DeliveryBaseCard(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.password, size: 80, color: AppColors.primary),
+                const SizedBox(height: 20),
+
+                const Text(
+                  "Delivery OTP Verification",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
-              ),
-              const SizedBox(height: 30),
-              CustomButton(
-                text: "Complete Delivery",
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => DeliveryCompletedScreen(),
+
+                const SizedBox(height: 8),
+
+                const Text(
+                  "Enter the customer's 4-digit delivery OTP.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey),
+                ),
+
+                const SizedBox(height: 30),
+
+                SuccessCircle(size: 130),
+
+                const SizedBox(height: 20),
+
+                const Text(
+                  "OTP Verified!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF23B26D),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0D3B66),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
-                  );
-                },
-              ),
-            ],
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => DeliveryCompletedScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Complete Delivery",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                const Text(
+                  "⚠️ No OTP = No Delivery Completion",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/auth/presentation/screens/otp_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/services.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController phoneController = TextEditingController();
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  void validateAndContinue() {
+    String phone = phoneController.text.trim();
+    RegExp phoneRegex = RegExp(r'^[6-9]\d{9}$');
+
+    if (phoneRegex.hasMatch(phone)) {
+      context.push('/otp', extra: '+91 $phone');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Enter a valid 10-digit mobile number")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +43,26 @@ class LoginScreen extends StatelessWidget {
 
             /// Logo icon
             Container(
-              height: 70,
-              width: 70,
+              height: 90,
+              width: 90,
               decoration: BoxDecoration(
                 color: const Color(0xFF0D3B66),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.verified, color: Colors.white, size: 40),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Image.asset(
+                  'assets/images/cleango_logo.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-
-            const SizedBox(height: 15),
 
             /// App Name
             const Text(
               "CleanGo",
               style: TextStyle(
-                fontSize: 36,
+                fontSize: 50,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF0D3B66),
               ),
@@ -40,7 +70,11 @@ class LoginScreen extends StatelessWidget {
 
             const Text(
               "Vendor",
-              style: TextStyle(fontSize: 16, color: Color(0xFF0D3B66)),
+              style: TextStyle(
+                fontSize: 19,
+                color: Color(0xFF0D3B66),
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
             const SizedBox(height: 60),
@@ -68,7 +102,12 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
+                      controller: phoneController,
                       keyboardType: TextInputType.phone,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10),
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter Mobile number",
@@ -86,9 +125,7 @@ class LoginScreen extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  context.push('/otp', extra: '+91 9347830977');
-                },
+                onPressed: validateAndContinue,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0D3B66),
                   shape: RoundedRectangleBorder(

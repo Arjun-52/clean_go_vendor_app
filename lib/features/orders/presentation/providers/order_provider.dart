@@ -2,23 +2,32 @@ import 'package:flutter/foundation.dart';
 import 'package:clean_go_vendor_app/features/orders/domain/models/order_model.dart';
 import 'package:clean_go_vendor_app/features/orders/domain/repositories/i_order_repository.dart';
 import 'package:clean_go_vendor_app/core/enums/order_status.dart';
+import 'package:clean_go_vendor_app/core/errors/errors.dart';
 
 class OrderProvider extends ChangeNotifier {
   final IOrderRepository _repository;
   List<OrderModel> _orders = [];
   bool _isLoading = false;
   String _selectedFilter = 'All';
+  AppException? _error;
 
   OrderProvider(this._repository);
 
   bool get isLoading => _isLoading;
+  AppException? get error => _error;
+  bool get hasError => _error != null;
 
   Future<void> fetchOrders() async {
     _isLoading = true;
+    _error = null;
     notifyListeners();
-    
+
     try {
-      _orders = await _repository.getOrders();
+      await ErrorHandler.safeExecute(() async {
+        _orders = await _repository.getOrders();
+      }, context: 'OrderProvider.fetchOrders');
+    } catch (error) {
+      _error = error as AppException;
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -44,7 +53,9 @@ class OrderProvider extends ChangeNotifier {
     }
 
     if (_selectedFilter == "Processing") {
-      return _orders.where((order) => order.status == OrderStatus.processing).toList();
+      return _orders
+          .where((order) => order.status == OrderStatus.processing)
+          .toList();
     }
 
     if (_selectedFilter == "Delivery") {
@@ -74,6 +85,13 @@ class OrderProvider extends ChangeNotifier {
   /// Clear all orders
   void clearOrders() {
     _orders.clear();
+    _error = null;
+    notifyListeners();
+  }
+
+  /// Clear error state
+  void clearError() {
+    _error = null;
     notifyListeners();
   }
 

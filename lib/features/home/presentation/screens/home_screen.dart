@@ -23,154 +23,87 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  if (widget.showPickupBanner) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showPickupCompletedBanner();
-    });
+    if (widget.showPickupBanner) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showPickupCompletedBanner();
+      });
+    }
   }
-}
 
   final int _currentIndex = 0;
+
+  /// ===== PICKUP COMPLETED BANNER =====
   void _showPickupCompletedBanner() {
     if (!mounted) return;
-    final overlay = Overlay.of(context);
 
-  late OverlayEntry overlayEntry;
-
-  overlayEntry = OverlayEntry(
-    builder: (context) => Positioned(
-      top: MediaQuery.of(context).padding.top + 16,
-      left: 16,
-      right: 16,
-      child: Material(
-        color: Colors.transparent,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Stack(
-            children: [
-              const Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Pickup Completed",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Order ORD-2026-001 picked up successfully",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-
-              
-              Positioned(
-                top: 0,
-                right: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    overlayEntry.remove();
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      size: 14,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
-
-  overlay.insert(overlayEntry);
-
-  Future.delayed(const Duration(seconds: 3), () {
-    if (mounted && overlayEntry.mounted) {
-      overlayEntry.remove();
-    }
-  });
-}
-  void _showSuccessBanner() {
-    if (!mounted) return;
-    final overlay = Overlay.of(context);
+    final overlay = Overlay.of(context, rootOverlay: true);
+    if (overlay == null) return;
 
     late OverlayEntry overlayEntry;
 
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 60,
-        left: 20,
-        right: 20,
+        top: MediaQuery.of(context).padding.top + 16,
+        left: 16,
+        right: 16,
         child: Material(
           color: Colors.transparent,
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(14),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 15),
+                BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
               ],
             ),
-            child: Row(
+            child: Stack(
               children: [
-                const Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Pickup Completed",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                /// TEXT
+                const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pickup Completed",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.black,
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        "Order ORD-2026-001 picked up successfully",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Order ORD-2026-001 picked up successfully",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () => overlayEntry.remove(),
-                  child: const CircleAvatar(
-                    radius: 14,
-                    backgroundColor: Colors.red,
-                    child: Icon(Icons.close, size: 14, color: Colors.white),
+
+                /// CLOSE BUTTON
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      overlayEntry.remove();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -182,8 +115,9 @@ void initState() {
 
     overlay.insert(overlayEntry);
 
+    /// AUTO REMOVE AFTER 3 SECONDS
     Future.delayed(const Duration(seconds: 3), () {
-      if (mounted && overlayEntry.mounted) {
+      if (overlayEntry.mounted) {
         overlayEntry.remove();
       }
     });

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:clean_go_vendor_app/core/widgets/app_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/seal_screen.dart';
@@ -69,6 +70,26 @@ class _DamageScreenState extends State<DamageScreen> {
             ),
           ],
         ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0x14008847), // light green background
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: const Color(0xFF008847), // green border
+              ),
+            ),
+            child: const Text(
+              "01:58:32",
+              style: TextStyle(
+                color: Color(0xFF008847),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
       ),
 
       body: Column(
@@ -215,6 +236,7 @@ class _DamageScreenState extends State<DamageScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:async';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -20,6 +20,41 @@ class _OtpScreenState extends State<OtpScreen> {
 
   final List<FocusNode> focusNodes = List.generate(4, (_) => FocusNode());
 
+  Timer? timer;
+  int secondsRemaining = 30;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    secondsRemaining = 30;
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (secondsRemaining == 0) {
+        timer.cancel();
+      } else {
+        setState(() {
+          secondsRemaining--;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    for (var controller in controllers) {
+      controller.dispose();
+    }
+    for (var node in focusNodes) {
+      node.dispose();
+    }
+    super.dispose();
+  }
+
   void onOtpChange(String value, int index) {
     if (value.isNotEmpty && index < 3) {
       focusNodes[index + 1].requestFocus();
@@ -27,6 +62,15 @@ class _OtpScreenState extends State<OtpScreen> {
     if (value.isEmpty && index > 0) {
       focusNodes[index - 1].requestFocus();
     }
+  }
+
+  bool isOtpValid() {
+    for (var controller in controllers) {
+      if (controller.text.isEmpty) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Widget otpBox(int index) {
@@ -56,7 +100,10 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("OTP Verification"),
+        title: const Text(
+          "OTP Verification",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -70,7 +117,10 @@ class _OtpScreenState extends State<OtpScreen> {
 
             Text(
               "We have sent a verification code to",
-              style: TextStyle(color: Colors.grey[700]),
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
             ),
 
@@ -102,7 +152,15 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  context.go('/home');
+                  if (isOtpValid()) {
+                    context.go('/home');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please enter the 4-digit OTP"),
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
@@ -121,15 +179,32 @@ class _OtpScreenState extends State<OtpScreen> {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("Didn't receive the OTP? "),
-                Text(
-                  "Resend OTP",
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+              children: [
+                const Text("Didn't receive the OTP? "),
+
+                secondsRemaining == 0
+                    ? GestureDetector(
+                        onTap: () {
+                          startTimer();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("OTP Resent")),
+                          );
+                        },
+                        child: const Text(
+                          "Resend OTP",
+                          style: TextStyle(
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        "Resend in ${secondsRemaining}s",
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ],
             ),
           ],

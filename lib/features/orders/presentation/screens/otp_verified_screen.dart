@@ -18,38 +18,38 @@ class OtpVerifiedScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
-        title: Column(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               "Pickup • ORD-2026-001",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
-            SizedBox(height: 2),
             Text(
               "Marco Jess",
               style: TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ],
         ),
+
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 16, top: 10, bottom: 10),
+            margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: green.withOpacity(0.1),
+              color: const Color(0x14008847),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: green),
+              border: Border.all(color: const Color(0xFF008847)),
             ),
-            child: const Center(
-              child: Text(
-                "01:57:22",
-                style: TextStyle(color: green, fontWeight: FontWeight.w600),
+            child: const Text(
+              "01:58:32",
+              style: TextStyle(
+                color: Color(0xFF008847),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -177,12 +177,12 @@ class OtpVerifiedScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(19),
                           ),
                         ),
                         onPressed: () {
-  context.go('/home', extra: true);
-},
+                          context.go('/home', extra: true);
+                        },
                         child: const Text(
                           "Complete Pickup",
                           style: TextStyle(

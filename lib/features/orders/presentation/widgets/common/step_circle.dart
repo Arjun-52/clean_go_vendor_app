@@ -14,7 +14,7 @@ class StepCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const activeColor = Color(0xff1C8D75);
+    const activeColor = Color(0xFF148C81);
 
     return Column(
       mainAxisSize: MainAxisSize.min,

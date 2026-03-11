@@ -34,8 +34,8 @@ class DeliveryQrCard extends StatelessWidget {
           Text(
             "QR: $orderId",
             style: const TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.w500,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 10),

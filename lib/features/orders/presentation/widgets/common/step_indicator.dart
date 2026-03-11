@@ -8,7 +8,7 @@ class StepIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const activeColor = Color(0xff1C8D75);
+    const activeColor = Color(0xFF148C81);
     const inactiveColor = Color(0xffE0E0E0);
 
     return Padding(
@@ -44,7 +44,7 @@ class StepIndicator extends StatelessWidget {
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          margin: const EdgeInsets.only(top: 24), 
+          margin: const EdgeInsets.only(top: 24),
           height: 2,
           color: active ? activeColor : inactiveColor,
         ),

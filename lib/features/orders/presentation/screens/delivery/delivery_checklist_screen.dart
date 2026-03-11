@@ -86,9 +86,17 @@ class _DeliveryChecklistScreenState extends State<DeliveryChecklistScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
+                    /// HEADER
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -114,49 +122,82 @@ class _DeliveryChecklistScreenState extends State<DeliveryChecklistScreen> {
 
                     const SizedBox(height: 20),
 
+                    /// SHIRT ITEM
                     Row(
                       children: [
-                        Radio<bool>(
-                          value: true,
-                          groupValue: partialDelivery,
-                          activeColor: const Color(0xFF0D3B66),
+                        Checkbox(
+                          value: shirtChecked,
+                          shape: const CircleBorder(),
+                          activeColor: const Color(0xFF148C81),
                           onChanged: (value) {
                             setState(() {
-                              partialDelivery = true;
+                              shirtChecked = value!;
                             });
                           },
                         ),
+
                         const SizedBox(width: 8),
+
+                        const Expanded(
+                          child: Text(
+                            "Shirt",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+
                         const Text(
-                          "Confirm partial delivery",
-                          style: TextStyle(fontSize: 16),
+                          "x4",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
 
+                    const SizedBox(height: 12),
+
+                    /// TROUSERS ITEM
                     Row(
                       children: [
-                        Radio<bool>(
-                          value: true,
-                          groupValue: partialDelivery,
-                          activeColor: const Color(0xFF0D3B66),
+                        Checkbox(
+                          value: trousersChecked,
+                          shape: const CircleBorder(),
+                          activeColor: const Color(0xFF148C81),
                           onChanged: (value) {
                             setState(() {
-                              partialDelivery = true;
+                              trousersChecked = value!;
                             });
                           },
                         ),
+
                         const SizedBox(width: 8),
+
+                        const Expanded(
+                          child: Text(
+                            "Trousers",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+
                         const Text(
-                          "Confirm partial delivery",
-                          style: TextStyle(fontSize: 16),
+                          "x2",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-
               const SizedBox(height: 20),
 
               /// -------- PARTIAL DELIVERY --------

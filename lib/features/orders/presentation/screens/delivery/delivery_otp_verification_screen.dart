@@ -38,35 +38,30 @@ class _DeliveryOtpVerificationScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Delivery • ORD-2026-001",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              "Pickup • ORD-2026-001",
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
-            SizedBox(height: 2),
             Text(
-              "Aday Sharma",
+              "Marco Jess",
               style: TextStyle(color: Colors.grey, fontSize: 13),
             ),
           ],
         ),
+
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: const Color(0xFFE6F4EA),
+              color: const Color(0x14008847), // light green background
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.green, width: 1.5),
+              border: Border.all(color: const Color(0xFF008847)),
             ),
             child: const Text(
-              "00:57:02",
+              "01:58:32",
               style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+                color: Color(0xFF008847),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
