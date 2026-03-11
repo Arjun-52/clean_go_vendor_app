@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:clean_go_vendor_app/core/enums/order_status.dart';
 
 class OrderCard extends StatelessWidget {
   final String orderId;
   final String location;
   final String items;
-  final String status;
+  final OrderStatus status;
   final String buttonText;
   final String price;
   final List<String> tags;
@@ -165,9 +166,9 @@ class OrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    status,
+                    status.displayName,
                     style: TextStyle(
-                      color: status == "Ready for Delivery"
+                      color: status == OrderStatus.readyForDelivery
                           ? Colors.green
                           : AppColors.primary,
                       fontWeight: FontWeight.w600,
@@ -175,7 +176,7 @@ class OrderCard extends StatelessWidget {
                     ),
                   ),
 
-                  if (timer != null && status == "Processing") ...[
+                  if (timer != null && status == OrderStatus.processing) ...[
                     const SizedBox(height: 4),
                     Row(
                       children: [

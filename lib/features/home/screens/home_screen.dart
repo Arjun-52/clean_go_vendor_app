@@ -8,6 +8,7 @@ import 'package:clean_go_vendor_app/features/orders/models/order_model.dart';
 import 'package:clean_go_vendor_app/features/notifications/screens/notifications_screen.dart';
 import 'package:clean_go_vendor_app/features/orders/screens/seal_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'package:clean_go_vendor_app/core/enums/order_status.dart';
 
 class HomeScreen extends StatefulWidget {
   final bool showPickupBanner;
@@ -188,7 +189,7 @@ void initState() {
   final List<OrderModel> orders = [
     OrderModel(
       orderId: "ORD-2026-001",
-      status: "Pickup Required",
+      status: OrderStatus.pickupRequired,
       price: "₹486",
       items: "3 items • wash-iron",
       tags: ["BREACHED", "FAST"],
@@ -197,7 +198,7 @@ void initState() {
     ),
     OrderModel(
       orderId: "ORD-2026-002",
-      status: "Processing",
+      status: OrderStatus.processing,
       price: "₹800",
       items: "6 items • wash-iron",
       tags: ["STANDARD"],
@@ -206,7 +207,7 @@ void initState() {
     ),
     OrderModel(
       orderId: "ORD-2026-003",
-      status: "Ready for Delivery",
+      status: OrderStatus.readyForDelivery,
       price: "₹486",
       items: "3 items • wash-iron",
       tags: ["BREACHED", "FAST"],
@@ -220,17 +221,17 @@ void initState() {
 
     if (selectedFilter == "Pickup") {
       return orders
-          .where((order) => order.status == "Pickup Required")
+          .where((order) => order.status == OrderStatus.pickupRequired)
           .toList();
     }
 
     if (selectedFilter == "Processing") {
-      return orders.where((order) => order.status == "Processing").toList();
+      return orders.where((order) => order.status == OrderStatus.processing).toList();
     }
 
     if (selectedFilter == "Delivery") {
       return orders
-          .where((order) => order.status == "Ready for Delivery")
+          .where((order) => order.status == OrderStatus.readyForDelivery)
           .toList();
     }
 
@@ -383,19 +384,19 @@ void initState() {
                   timer: order.timer,
                   isBreached: order.isBreached,
 
-                  buttonText: order.status == "Pickup Required"
+                  buttonText: order.status == OrderStatus.pickupRequired
                       ? "Start Pickup"
-                      : order.status == "Processing"
+                      : order.status == OrderStatus.processing
                       ? "Continue"
                       : "Start Delivery",
 
                   onPressed: () {
-                    if (order.status == "Pickup Required") {
+                    if (order.status == OrderStatus.pickupRequired) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (_) => PickupScreen()),
                       );
-                    } else if (order.status == "Ready for Delivery") {
+                    } else if (order.status == OrderStatus.readyForDelivery) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (_) => SealScreen()),

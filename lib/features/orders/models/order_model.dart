@@ -1,6 +1,8 @@
+import 'package:clean_go_vendor_app/core/enums/order_status.dart';
+
 class OrderModel {
   final String orderId;
-  final String status;
+  final OrderStatus status;
   final String price;
   final String items;
   final List<String> tags;
