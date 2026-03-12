@@ -4,6 +4,7 @@ import 'package:clean_go_vendor_app/features/orders/presentation/screens/process
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/delivery/delivery_screen.dart';
 import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 import 'package:clean_go_vendor_app/features/history/presentation/screens/history_screen.dart';
+import 'package:clean_go_vendor_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBottomNav extends StatelessWidget {
@@ -38,6 +39,9 @@ class AppBottomNav extends StatelessWidget {
           case 3:
             screen = const HistoryScreen();
             break;
+          case 4:
+            screen = const ProfileScreen();
+            break;
           default:
             return;
         }
@@ -50,6 +54,8 @@ class AppBottomNav extends StatelessWidget {
           context.go('/delivery');
         } else if (screen is HistoryScreen) {
           context.go('/history');
+        } else if (screen is ProfileScreen) {
+          context.go('/profile');
         }
       },
       items: [

@@ -1,7 +1,7 @@
-import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'dart:async';
+import 'package:clean_go_vendor_app/core/constants/app_colors.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -13,12 +13,8 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final List<TextEditingController> controllers = List.generate(
-    4,
-    (_) => TextEditingController(),
-  );
-
-  final List<FocusNode> focusNodes = List.generate(4, (_) => FocusNode());
+  final controllers = List.generate(4, (_) => TextEditingController());
+  final focusNodes = List.generate(4, (_) => FocusNode());
 
   Timer? timer;
   int secondsRemaining = 30;
@@ -31,14 +27,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void startTimer() {
     secondsRemaining = 30;
+    timer?.cancel();
 
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (secondsRemaining == 0) {
-        timer.cancel();
+        t.cancel();
       } else {
-        setState(() {
-          secondsRemaining--;
-        });
+        setState(() => secondsRemaining--);
       }
     });
   }
@@ -46,57 +41,40 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     timer?.cancel();
-    for (var controller in controllers) {
-      controller.dispose();
-    }
-    for (var node in focusNodes) {
-      node.dispose();
-    }
+    for (var c in controllers) c.dispose();
+    for (var f in focusNodes) f.dispose();
     super.dispose();
   }
 
   void onOtpChange(String value, int index) {
-    if (value.isNotEmpty && index < 3) {
-      focusNodes[index + 1].requestFocus();
-    }
-    if (value.isEmpty && index > 0) {
-      focusNodes[index - 1].requestFocus();
-    }
+    if (value.isNotEmpty && index < 3) focusNodes[index + 1].requestFocus();
+    if (value.isEmpty && index > 0) focusNodes[index - 1].requestFocus();
   }
 
-  bool isOtpValid() {
-    for (var controller in controllers) {
-      if (controller.text.isEmpty) {
-        return false;
-      }
-    }
-    return true;
-  }
+  bool get isOtpValid => controllers.every((c) => c.text.isNotEmpty);
 
-  Widget otpBox(int index) {
+  Widget otpBox(int i) {
     return SizedBox(
       width: 60,
       height: 60,
       child: TextField(
-        controller: controllers[index],
-        focusNode: focusNodes[index],
+        controller: controllers[i],
+        focusNode: focusNodes[i],
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
+        style: const TextStyle(fontSize: 22),
         decoration: InputDecoration(
           counterText: "",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        style: const TextStyle(fontSize: 22),
-        onChanged: (value) => onOtpChange(value, index),
+        onChanged: (v) => onOtpChange(v, i),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF0D3B66);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -142,7 +120,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [otpBox(0), otpBox(1), otpBox(2), otpBox(3)],
+              children: List.generate(4, otpBox),
             ),
 
             const SizedBox(height: 30),
@@ -152,7 +130,7 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  if (isOtpValid()) {
+                  if (isOtpValid) {
                     context.go('/home');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

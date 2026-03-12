@@ -4,6 +4,9 @@ import 'package:clean_go_vendor_app/features/auth/presentation/screens/otp_scree
 import 'package:clean_go_vendor_app/features/home/presentation/screens/home_screen.dart';
 import 'package:clean_go_vendor_app/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:clean_go_vendor_app/features/history/presentation/screens/history_screen.dart';
+import 'package:clean_go_vendor_app/features/profile/presentation/screens/profile_screen.dart';
+import 'package:clean_go_vendor_app/features/profile/presentation/screens/saved_addresses_screen.dart';
+import 'package:clean_go_vendor_app/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/providers/orders_provider_wrapper.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/pickup/pickup_screen.dart';
 import 'package:clean_go_vendor_app/features/orders/presentation/screens/pickup/pickup_otp_screen.dart';
@@ -50,6 +53,21 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/history',
       builder: (context, state) => const HistoryScreen(),
+    ),
+
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
+
+    GoRoute(
+      path: '/saved-addresses',
+      builder: (context, state) => const SavedAddressesScreen(),
+    ),
+
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) => const EditProfileScreen(),
     ),
 
     GoRoute(
